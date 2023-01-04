@@ -28,9 +28,9 @@ public class User implements Serializable {
 
     public User() {
     }
+    //997832234
 
-    public User(Integer id, Integer phoneNumber, String nickName, String name, String lastName) {
-        this.id = id;
+    public User(Integer phoneNumber, String nickName, String name, String lastName) {
         this.phoneNumber = phoneNumber;
         this.nickName = nickName;
         this.name = name;

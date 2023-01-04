@@ -18,11 +18,11 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public boolean existsByPhoneNumber(String phoneNumber) {
+    public boolean existsByPhoneNumber(Integer phoneNumber) {
         return userRepository.existsByPhoneNumber(phoneNumber);
     }
 
-    public User findByPhoneNumber(String phoneNumber) {
+    public User findByPhoneNumber(Integer phoneNumber) {
         return userRepository.findByPhoneNumber(phoneNumber);
     }
 

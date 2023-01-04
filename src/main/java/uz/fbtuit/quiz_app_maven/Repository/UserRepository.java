@@ -13,8 +13,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 //    @Query(value = "select p from User p where phoneNumber = ?1")
 //    boolean findExistByname(String phoneNumber);
 
-    boolean existsByPhoneNumber(String phoneNumber);
-    User findByPhoneNumber(String phoneNumber);
+    boolean existsByPhoneNumber(Integer phoneNumber);
+    User findByPhoneNumber(Integer phoneNumber);
 
 
 }

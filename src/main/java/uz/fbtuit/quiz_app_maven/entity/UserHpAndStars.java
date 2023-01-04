@@ -1,11 +1,10 @@
 package uz.fbtuit.quiz_app_maven.entity;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Table(name = "userhpandatars")
 @Entity
-public class UserHpAndStars implements Serializable {
+public class UserHpAndStars {
     private static final long serialVersionUID = 1L;
     @Transient
     private static final String sequence = "user_Hp_Starts_sequence";
