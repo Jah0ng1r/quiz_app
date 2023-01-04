@@ -1,5 +1,7 @@
 package uz.fbtuit.quiz_app_maven.entity;
 
+import org.springframework.lang.NonNull;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -28,9 +30,11 @@ public class User implements Serializable {
 
     public User() {
     }
-    //997832234
 
-    public User(Integer phoneNumber, String nickName, String name, String lastName) {
+
+
+    public User(Integer id, Integer phoneNumber, String nickName, String name, String lastName) {
+        this.id = id;
         this.phoneNumber = phoneNumber;
         this.nickName = nickName;
         this.name = name;
@@ -41,7 +45,7 @@ public class User implements Serializable {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId( Integer id) {
         this.id = id;
     }
 
@@ -76,5 +80,4 @@ public class User implements Serializable {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-
 }

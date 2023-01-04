@@ -3,6 +3,7 @@ package uz.fbtuit.quiz_app_maven.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import uz.fbtuit.quiz_app_maven.Repository.UserRepository;
 import uz.fbtuit.quiz_app_maven.Service.UserService;
 import uz.fbtuit.quiz_app_maven.entity.CheckPhone;
 import uz.fbtuit.quiz_app_maven.entity.User;
@@ -16,11 +17,14 @@ public class UserController {
     public final UserService userService;
     HashMap<String, String> vallue = new HashMap<>();
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService,
+                          UserRepository userRepository) {
         this.userService = userService;
+        this.userRepository = userRepository;
     }
 
     HashMap<String, String> value = new HashMap<>();
+    private final UserRepository userRepository;
 
     //    chek user ishlagani yoq
     @PostMapping("/checkUser/")
@@ -29,12 +33,11 @@ public class UserController {
         List<User> userList = userService.getAll();
         User currentUser = null;
 
-        if(userService.existsByPhoneNumber(phonenumber)){
-
+        if (userService.existsByPhoneNumber(phonenumber)) {
             value.clear();
             value.put("phoneNumber", "exsit");
             return new ResponseEntity(value, HttpStatus.CHECKPOINT);
-        }else {
+        } else {
 
             value.clear();
             value.put("phoneNumber", "Not exsit");
@@ -65,10 +68,24 @@ public class UserController {
 
     }
 
+    @PutMapping("/updateUser/{id}")
+    ResponseEntity updateUser(@PathVariable("id") Integer id, @RequestBody User user) {
+
+        int i = userService.updateUserReal(user.getPhoneNumber(), user.getNickName(), user.getName(), user.getLastName(),id );
+
+        return new ResponseEntity(i, HttpStatus.UPGRADE_REQUIRED);
+
+    }
+
     @GetMapping("/getAll")
     ResponseEntity getAll() {
         List<User> userList = userService.getAll();
-        return new ResponseEntity<>(userList, HttpStatus.OK);
+        List<Integer> ids = null;
+        for (User users : userList) {
+            ids.add(users.getId());
+
+        }
+        return new ResponseEntity<>(ids, HttpStatus.OK);
 
     }
 
