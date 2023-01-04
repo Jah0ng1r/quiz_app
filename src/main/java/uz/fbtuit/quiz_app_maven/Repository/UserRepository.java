@@ -23,7 +23,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Modifying
     @Transactional
     @Query(value = "update QuizUser u set u.phoneNumber = ?1, u.nickName=?2, u.name=?3,u.lastName = ?4 where u.id = ?5")
-    void upateUser(Integer phoneNumber, String nickName, String name, String lastName, Integer id);
 
     Optional<User> findById(Integer id);
 

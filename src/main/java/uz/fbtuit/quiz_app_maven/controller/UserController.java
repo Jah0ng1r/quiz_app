@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import uz.fbtuit.quiz_app_maven.Repository.UserRepository;
 import uz.fbtuit.quiz_app_maven.Service.UserService;
-import uz.fbtuit.quiz_app_maven.entity.CheckPhone;
 import uz.fbtuit.quiz_app_maven.entity.User;
 
 import java.util.HashMap;
@@ -26,39 +25,6 @@ public class UserController {
     HashMap<String, String> value = new HashMap<>();
     private final UserRepository userRepository;
 
-    //    chek user ishlagani yoq
-    @PostMapping("/checkUser/")
-    ResponseEntity responseEntity(@RequestBody CheckPhone checkPhone) {
-        Integer phonenumber = checkPhone.getPhoneNumber();
-        List<User> userList = userService.getAll();
-        User currentUser = null;
-
-        if (userService.existsByPhoneNumber(phonenumber)) {
-            value.clear();
-            value.put("phoneNumber", "exsit");
-            return new ResponseEntity(value, HttpStatus.CHECKPOINT);
-        } else {
-
-            value.clear();
-            value.put("phoneNumber", "Not exsit");
-            return new ResponseEntity(value, HttpStatus.CHECKPOINT);
-        }
-//        for (User user : userList) {
-//            if (user.getPhoneNumber() == phonenumber) {
-//                currentUser = user;
-//                break;
-//            }
-//        }
-//        if (currentUser!=null) {
-//            value.clear();
-//            value.put("phoneNumber", "exsit");
-//            return new ResponseEntity(value, HttpStatus.CHECKPOINT);
-//        } else {
-//            value.clear();
-//            value.put("phoneNumber", " not exsit");
-//            return new ResponseEntity(value, HttpStatus.CHECKPOINT);
-//        }
-    }
 
     //Userga keyin token jo`natiladi shu methodda
     @PostMapping("/createUser")
@@ -68,30 +34,36 @@ public class UserController {
 
     }
 
+
+    //update user
     @PutMapping("/updateUser/{id}")
     ResponseEntity updateUser(@PathVariable("id") Integer id, @RequestBody User user) {
 
-        int i = userService.updateUserReal(user.getPhoneNumber(), user.getNickName(), user.getName(), user.getLastName(),id );
+        int i = userService.updateUserReal(user.getPhoneNumber(), user.getNickName(), user.getName(), user.getLastName(), id);
 
         return new ResponseEntity(i, HttpStatus.UPGRADE_REQUIRED);
 
     }
 
+
+    //bu yerga delete hp va starsni ham qo`shish kerak
+    @DeleteMapping("/delete/{id}")
+    ResponseEntity deleteUser(@PathVariable("id") Integer id) {
+        userService.deleteUser(id);
+        return ResponseEntity.ok(id);
+    }
+
     @GetMapping("/getAll")
     ResponseEntity getAll() {
         List<User> userList = userService.getAll();
-        List<Integer> ids = null;
-        for (User users : userList) {
-            ids.add(users.getId());
 
-        }
-        return new ResponseEntity<>(ids, HttpStatus.OK);
+        return new ResponseEntity<>(userList, HttpStatus.OK);
 
     }
 
-    // ## hozir lekin Ishlashi kerak
-    @PostMapping("/getUserByPhone")
-    ResponseEntity getUserByPhone(@RequestBody Integer phoneNumber) {
+
+    @GetMapping("/getUserByPhone/{phoneNumber}")
+    ResponseEntity getUserByPhone(@PathVariable Integer phoneNumber) {
         return new ResponseEntity<>(userService.findByPhoneNumber(phoneNumber), HttpStatus.OK);
 
     }
