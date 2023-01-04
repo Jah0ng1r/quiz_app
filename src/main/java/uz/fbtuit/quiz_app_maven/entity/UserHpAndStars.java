@@ -19,18 +19,14 @@ public class UserHpAndStars implements Serializable {
     @Column(name = "Stars")
     private Integer stars;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user;
-
 
     public UserHpAndStars() {
     }
 
-    public UserHpAndStars(Integer hp, Integer stars, User user) {
+    public UserHpAndStars(Integer id, Integer hp, Integer stars) {
+        this.id = id;
         this.hp = hp;
         this.stars = stars;
-        this.user = user;
     }
 
     public Integer getId() {
@@ -57,11 +53,5 @@ public class UserHpAndStars implements Serializable {
         this.stars = stars;
     }
 
-    public User getUser() {
-        return user;
-    }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
 }

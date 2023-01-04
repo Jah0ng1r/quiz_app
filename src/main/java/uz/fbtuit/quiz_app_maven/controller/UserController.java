@@ -23,36 +23,7 @@ public class UserController {
     //    chek user ishlagani yoq
     @PostMapping("/checkUser")
     ResponseEntity responseEntity(@RequestBody String phoneNumber) {
-        List<User> userList = userService.getAll();
-        String real = "0000";
-        User userreal;
-        for (User user : userList) {
-            if (user.getPhoneNumber() == phoneNumber)
-                real = phoneNumber;
-            userreal = user;
-        }
-
-        if (real.equals("0000")) {
-            value.clear();
-            value.put("phoneNumber", "Not exist");
-            return new ResponseEntity(value, HttpStatus.OK);
-
-        } else {
-            value.clear();
-            value.put("phoneNumber", "exist");
-            return new ResponseEntity(value, HttpStatus.OK);
-        }
-
-//        if (userService.existsByPhoneNumber(phoneNumber) || userService.findByPhoneNumber(phoneNumber) != null) {
-//            value.clear();
-//            value.put("phoneNumber", "exist");
-//            return new ResponseEntity(value, HttpStatus.OK);
-//        } else {
-//            value.clear();
-//            value.put("phoneNumber", "Not exist");
-//            return new ResponseEntity(value, HttpStatus.OK);
-//        }
-
+        return ResponseEntity.ok("dk");
     }
 
 

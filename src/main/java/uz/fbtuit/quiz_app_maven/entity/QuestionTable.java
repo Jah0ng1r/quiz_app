@@ -21,17 +21,27 @@ public class QuestionTable implements Serializable {
     private String value2;
     private String value3;
 
+    private Integer userId;
 
-    public QuestionTable(String question, String trueValue, String value1, String value2, String value3, User user) {
+    public QuestionTable(Integer id, String question, String trueValue, String value1, String value2, String value3, Integer userId) {
+        this.id = id;
         this.question = question;
         this.trueValue = trueValue;
         this.value1 = value1;
         this.value2 = value2;
         this.value3 = value3;
-        this.user = user;
+        this.userId = userId;
     }
 
     public QuestionTable() {
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public Integer getId() {
@@ -81,17 +91,5 @@ public class QuestionTable implements Serializable {
     public void setValue3(String value3) {
         this.value3 = value3;
     }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "user_id")
-    private User user;
 
 }
